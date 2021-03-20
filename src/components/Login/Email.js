@@ -12,6 +12,7 @@ if (!firebase.apps.length) {
     firebase.app(); 
  }
 const Login = () => {
+  
   const [loggedUser, setLoggedUser] = useContext(UserContext)
   const history = useHistory();
         const location = useLocation();
@@ -22,12 +23,10 @@ const Login = () => {
         firebase.auth()
   .signInWithPopup(googleProvider)
   .then(result => {
-    const {displayName, email} = result.user;
-    console.log(result.user)
-    const signedInUser = { name : displayName, email}
-    setUser(signedInUser)
-    setLoggedUser(signedInUser)
-    history.replace(from);
+    const {displayName,email,photoURL} = result.user;
+    const signedInUser = {displayName,email,photoURL}
+        setLoggedUser(signedInUser);
+        history.replace(from);
 
   }).catch((error) => {
     console.log(error)
@@ -52,15 +51,15 @@ const Login = () => {
           const handleBlur = (e) => {
             let isFieldValid = true ;
               if (e.target.name === "email"){
-                isFieldValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)
+                isFieldValid = /\S+@\S+\.\S+/.test(e.target.value)
               }
               if (e.target.name === "password"){
-                const isPasswordValid  =  e.target.value.length > 7 ;
+                const isPasswordValid  =  e.target.value.length > 6 ;
                 const hasPasswordNumber =  /\d{1}/.test(e.target.value)
                 isFieldValid = isPasswordValid && hasPasswordNumber ;
               }
               if(isFieldValid){
-                  let newUserInfo = {...user};
+                  const newUserInfo = {...user};
                   newUserInfo[e.target.name] = e.target.value ;
                   setUser(newUserInfo)
               }
@@ -69,22 +68,18 @@ const Login = () => {
           const handleSubmit = (e) => {
             if(newUser && user.email && user.password){
               firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-              .then(result => {
+              .then(res => {
                 const newUserInfo = {...user};
                 newUserInfo.error = '';
                 newUserInfo.success = true;
-                setNewUser(newUserInfo);
-                const {displayName,email,photoURL} = result.user;
-    const signedInUser = {name : displayName,email,photoURL}
-        setLoggedUser(signedInUser);
-        history.replace(from);
-               
+                setUser(newUserInfo);
+                upDateUser(user.name)
               })
               .catch(error => {
                 const newUserInfo = {...user};
                 newUserInfo.error = error.message;
                 newUserInfo.success = true
-                setNewUser(newUserInfo)
+                setUser(newUserInfo)
               });
             if (!newUser && user.email && user.password){
               firebase.auth().signInWithEmailAndPassword(user.email, user.password)
@@ -92,7 +87,7 @@ const Login = () => {
           const newUserInfo = {...user};
                 newUserInfo.error = '';
                 newUserInfo.success = true;
-                setNewUser(newUserInfo);
+                setUser(newUserInfo);
                 const {displayName,email,photoURL} = result.user;
     const signedInUser = {displayName,email,photoURL}
         setLoggedUser(signedInUser);
@@ -103,13 +98,23 @@ const Login = () => {
           const newUserInfo = {...user};
                 newUserInfo.error = error.message;
                 newUserInfo.success = false
-                setNewUser(newUserInfo)
+                setUser(newUserInfo)
         });
             }
             }
             e.preventDefault();
           }
-            
+            const upDateUser = (name) =>{
+              const  user = firebase.auth().currentUser;
+      
+      user.updateProfile({
+        displayName: name,  
+      }).then(function() {
+        // Update successful.
+      }).catch(function(error) {
+        // An error happened.
+      });
+            }
       
         return (
             <Container align="justify" maxWidth="md">

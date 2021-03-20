@@ -2,11 +2,11 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 const Book = () => {
-    const {bedType} = useParams();
+    const {type} = useParams();
     return (
         <div style={{textAlign: 'center'}}>
-            <h1>Let's book a {bedType} Room.</h1>
-            <p>Want a <Link to="/home">different room?</Link> </p>
+            <h1>Let's book a {type} Room.</h1>
+            <p>Want a <Link to="/home">different one?</Link> </p>
         </div>
     );
 };

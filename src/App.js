@@ -19,7 +19,10 @@ import PrivateRoute from './PrivateRoute/PrivateRoute';
 function App() {
   const [loggedUser, setLoggedUser] = useState({})
   return (
+    
     <UserContext.Provider value={[loggedUser, setLoggedUser]}>
+      <h1>{loggedUser.name}</h1>
+      <h1>{loggedUser.email}</h1>
       <Router>
           <Header/>
           <Switch>
@@ -29,7 +32,7 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <PrivateRoute path="/book/:bedType">
+            <PrivateRoute path="/book/:type">
               <Book />
             </PrivateRoute>
             <Route exact path="/">

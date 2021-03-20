@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 245,
   },
   media: {
     height: 0,
@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Room({room}){
   const classes = useStyles();
   const history = useHistory()
-    const handleBook = (bedType) => {
-        history.push(`/book/${bedType}`);
+    const handleBook = (type) => {
+        history.push(`/book/${type}`);
     }
   return (
     <Card className={classes.root}>
@@ -60,23 +60,17 @@ export default function Room({room}){
         image={room.imgUrl}
         title="Paella dish"
       />
-      <img src={`/images/${room.bedType}.png`} alt=""/>
+      <img src={`/images/${room.type}.png`} alt=""/>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {room.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <LocalHotelIcon />: {room.bed} 
-        </IconButton>
-        <IconButton aria-label="share">
-          <WcIcon />: {room.capacity} 
-        </IconButton>
-        <IconButton aria-label="price">
-          <AttachMoneyIcon />: {room.price} 
-        </IconButton>
-        <Button onClick={() => handleBook(room.bedType)} variant="contained" color="primary">
+       
+       
+    
+        <Button onClick={() => handleBook(room.type)} variant="contained" color="primary">
             Book
         </Button>
       </CardActions>

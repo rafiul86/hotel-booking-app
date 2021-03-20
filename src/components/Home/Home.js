@@ -14,7 +14,7 @@ const Home = () => {
             imgUrl: 'https://cdn.jumeirah.com/-/mediadh/dh/hospitality/jumeirah/offers/offer-images/burj-al-arab-presidential-suite-living-room-4-hero.jpg',
             bed: 1,
             capacity: 1,
-            bedType: 'Single',
+            type: 'Single',
             avatar: 'S',
             price: 119
         },
@@ -24,7 +24,7 @@ const Home = () => {
             imgUrl: 'https://cdn.jumeirah.com/-/mediadh/dh/hospitality/jumeirah/offers/offer-images/burj-al-arab-royal-suite-staircase-5-hero.jpg',
             bed: 1,
             capacity: 2,
-            bedType: 'Double',
+            type: 'Double',
             avatar: 'D',
             price: 149
         },
@@ -34,7 +34,7 @@ const Home = () => {
             imgUrl: 'https://cdn.jumeirah.com/-/mediadh/dh/hospitality/jumeirah/hotels/dubai/burj-al-arab-jumeirah/room/presidential-two-bedroom-suite/burj-al-arab-presidential-suite-guest-bedroom_6-4_landscape/burj-al-arab-presidential-suite-guest-bedroom_16-9_landscape.jpg?w=2080',
             bed: 2,
             capacity: 4,
-            bedType: 'Family',
+            type: 'Family',
             avatar: 'F',
             price: 199
         }
@@ -42,7 +42,7 @@ const Home = () => {
     return (
         <div style={style}>
             {
-                rooms.map(room => <Room key={room.bedType} room={room}></Room>)
+                rooms.map(room => <Room key={room.type} room={room}></Room>)
             }
         </div>
     );
