@@ -22,9 +22,9 @@ const Login = () => {
         firebase.auth()
   .signInWithPopup(googleProvider)
   .then(result => {
-    const {displayName, email} = result.user;
+    const {displayName, email,photoURL} = result.user;
     console.log(result.user)
-    const signedInUser = { name : displayName, email}
+    const signedInUser = { name : displayName, email ,photo :photoURL}
     setUser(signedInUser)
     setLoggedUser(signedInUser)
     history.replace(from);
@@ -93,8 +93,8 @@ const Login = () => {
                 newUserInfo.error = '';
                 newUserInfo.success = true;
                 setNewUser(newUserInfo);
-                const {displayName,email,photoURL} = result.user;
-    const signedInUser = {displayName,email,photoURL}
+                const {displayName,email} = result.user;
+    const signedInUser = {displayName,email}
         setLoggedUser(signedInUser);
         history.replace(from);
 
@@ -113,8 +113,6 @@ const Login = () => {
       
         return (
             <Container align="justify" maxWidth="md">
-              <h3>  Welcome  : {user.email}</h3> 
-              <img src={user.photoURL} alt=""/>
               
               <div className="App">
           <input type="checkbox" onChange = {()=> setNewUser(!newUser)} name ="newUser"/>
