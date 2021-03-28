@@ -27,7 +27,7 @@ const Login = () => {
     const signedInUser = { name : displayName, email ,photo :photoURL}
     setUser(signedInUser)
     setLoggedUser(signedInUser)
-   
+    handleAuthToken()
     history.replace(from);
 
   }).catch((error) => {
@@ -110,7 +110,14 @@ const Login = () => {
             }
             e.preventDefault();
           }
-            
+            const handleAuthToken = () => {
+              firebase.auth().currentUser.getIdToken(true)
+              .then(function(idToken) {
+                sessionStorage.setItem('token', idToken)
+              }).catch(function(error) {
+                console.log(error)
+              });
+            }
         return (
             <Container align="justify" maxWidth="md">
               
