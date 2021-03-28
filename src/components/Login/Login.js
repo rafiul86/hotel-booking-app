@@ -27,6 +27,7 @@ const Login = () => {
     const signedInUser = { name : displayName, email ,photo :photoURL}
     setUser(signedInUser)
     setLoggedUser(signedInUser)
+   
     history.replace(from);
 
   }).catch((error) => {
@@ -110,7 +111,6 @@ const Login = () => {
             e.preventDefault();
           }
             
-      
         return (
             <Container align="justify" maxWidth="md">
               
